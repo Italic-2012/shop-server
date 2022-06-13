@@ -4,9 +4,16 @@ import { DefaultModule } from './module/default/default.module';
 import { ApiModule } from './module/api/api.module';
 // admin权限校验中间件
 import { AdminAuthMiddleware } from "./middleware/admin-auth.middleware";
+// mongodb
+import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
-  imports: [AdminModule, DefaultModule, ApiModule],
+  imports: [
+    AdminModule,
+    DefaultModule,
+    ApiModule,
+    MongooseModule.forRoot('mongodb://127.0.0.1:27018/xiaomi',  { useNewUrlParser: true })
+  ],
   controllers: [],
   providers: [],
 })
