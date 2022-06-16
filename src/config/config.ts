@@ -7,11 +7,16 @@
 /**
  * admin路由白名单
  */
-const ADMIN_ROUTER_WHITE_LIST = [
-  '/admin/login',
-  '/admin/login/code'
-]
+const ADMIN_ROUTER_WHITE_LIST = ['/admin/login', '/admin/login/code'];
 
-export {
-  ADMIN_ROUTER_WHITE_LIST
-}
+const Config = {
+  // 后台路由前缀
+  adminPath: 'admin',
+
+  /**
+   * session过期时间
+   */
+  sessionMaxAge: 30 * 1000 * 60,
+};
+
+export { ADMIN_ROUTER_WHITE_LIST, Config };

@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import * as path from "path";
+import * as path from 'path';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
+import { Config } from 'src/config/config';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -16,16 +17,18 @@ async function bootstrap() {
   app.setViewEngine('ejs');
 
   // 配置 cookie 中间件
-  app.use(cookieParser("this signed cookies"));
+  app.use(cookieParser('this signed cookies'));
 
   // 配置 session 的中间件
-  app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized:true,
-    cookie: { maxAge: 1000*60*30, httpOnly: true },
-    rolling: true
-  }));
+  app.use(
+    session({
+      secret: 'keyboard cat',
+      resave: true,
+      saveUninitialized: true,
+      cookie: { maxAge: Config.sessionMaxAge, httpOnly: true },
+      rolling: true, // 每次访问session过期时间累加
+    }),
+  );
 
   await app.listen(3000);
 }

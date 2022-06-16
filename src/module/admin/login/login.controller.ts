@@ -69,8 +69,6 @@ export class LoginController {
             });
           }
         } else {
-          // console.log('验证码不正确');
-          // res.redirect('/admin/login');
           await this.toolsService.error(res, {
             message: '验证码不正确',
             redirectUrl: '/admin/login',

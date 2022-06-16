@@ -7,6 +7,7 @@ export class AdminAuthMiddleware implements NestMiddleware {
     // 从session中获取用户登录态
     const userInfo = req.session.userInfo;
     if (userInfo && userInfo.username) {
+      res.locals.userInfo = userInfo;
       next();
     } else {
       if (ADMIN_ROUTER_WHITE_LIST.includes(req.baseUrl)) {
